@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./hotel-booking-backend
+      dockerfile: Dockerfile
+    container_name: hotel-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./hotel-booking-backend/.env
+
+  frontend:
+    build:
+      context: ./hotel-booking-frontend/diploma-fjs-frontend
+      dockerfile: Dockerfile
+    container_name: hotel-frontend
+    ports:
+      - "5173:80"
+    env_file:
+      - ./hotel-booking-frontend/diploma-fjs-frontend/.env
+    restart: unless-stopped
+    depends_on:
+      - backend
